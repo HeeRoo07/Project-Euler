@@ -1,0 +1,166 @@
+Leetcode
+
+ Soru 162. Find Peak Element
+
+
+public class Solution {
+    public int findPeakElement(int[] nums) {
+        int l = 0, r = nums.length - 1;
+        while (l < r) {
+            int mid = (l + r) / 2;
+            if (nums[mid] > nums[mid + 1])
+                r = mid;
+            else
+                l = mid + 1;
+        }
+        return l;
+    }
+}
+Sonuç:2
+
+Soru 122. Best Time to Buy and Sell Stock II
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int maxprofit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] > prices[i - 1])
+                maxprofit += prices[i] - prices[i - 1];
+        }
+        return maxprofit;
+    }
+}
+
+Sonuç:7
+92. Reverse Linked List II
+
+
+class Solution {
+
+    // Object level variables since we need the changes
+    // to persist across recursive calls and Java is pass by value.
+    private boolean stop;
+    private ListNode left;
+
+    public void recurseAndReverse(ListNode right, int m, int n) {
+
+        // base case. Don't proceed any further
+        if (n == 1) {
+            return;
+        }
+
+        // Keep moving the right pointer one step forward until (n == 1)
+        right = right.next;
+
+        // Keep moving left pointer to the right until we reach the proper node
+        // from where the reversal is to start.
+        if (m > 1) {
+            this.left = this.left.next;
+        }
+
+        // Recurse with m and n reduced.
+        this.recurseAndReverse(right, m - 1, n - 1);
+
+        // In case both the pointers cross each other or become equal, we
+        // stop i.e. don't swap data any further. We are done reversing at this
+        // point.
+        if (this.left == right || right.next == this.left) {
+            this.stop = true;            
+        }
+
+        // Until the boolean stop is false, swap data between the two pointers
+        if (!this.stop) {
+            int t = this.left.val;
+            this.left.val = right.val;
+            right.val = t;
+
+            // Move left one step to the right.
+            // The right pointer moves one step back via backtracking.
+            this.left = this.left.next;
+        }
+    }
+
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        this.left = head;
+        this.stop = false;
+        this.recurseAndReverse(head, m, n);
+        return head;
+    }
+}
+
+Sonuç: [1,4,3,2,5]
+
+
+Soru 22	Generate Parentheses    
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> combinations = new ArrayList();
+        generateAll(new char[2 * n], 0, combinations);
+        return combinations;
+    }
+
+    public void generateAll(char[] current, int pos, List<String> result) {
+        if (pos == current.length) {
+            if (valid(current))
+                result.add(new String(current));
+        } else {
+            current[pos] = '(';
+            generateAll(current, pos+1, result);
+            current[pos] = ')';
+            generateAll(current, pos+1, result);
+        }
+    }
+
+    public boolean valid(char[] current) {
+        int balance = 0;
+        for (char c: current) {
+            if (c == '(') balance++;
+            else balance--;
+            if (balance < 0) return false;
+        }
+        return (balance == 0);
+    }
+}
+
+def generateParenthesis(self, N):
+    if N == 0: return ['']
+    ans = []
+    for c in xrange(N):
+        for left in self.generateParenthesis(c):
+            for right in self.generateParenthesis(N-1-c):
+                ans.append('({}){}'.format(left, right))
+    return ans
+
+Sonuç:3
+
+
+32. Longest Valid Parentheses
+
+public class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<Character>();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                stack.push('(');
+            } else if (!stack.empty() && stack.peek() == '(') {
+                stack.pop();
+            } else {
+                return false;
+            }
+        }
+        return stack.empty();
+    }
+    public int longestValidParentheses(String s) {
+        int maxlen = 0;
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i + 2; j <= s.length(); j+=2) {
+                if (isValid(s.substring(i, j))) {
+                    maxlen = Math.max(maxlen, j - i);
+                }
+            }
+        }
+        return maxlen;
+    }
+}
+ 
+Sonuç:15
