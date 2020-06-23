@@ -1,0 +1,200 @@
+2-Project Euler Soru Çözümü
+
+Soru 2  Even Fibonacci numbers
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.*;
+import java.io.File;
+public class Problem {
+    public static void  main (string args [ ]){
+        int sum = 0,i=2;
+        int[] fib=new int[50];
+        fib[0]=1; fib[1]=2;
+        
+        while (true){
+            fib[i]=fib[i -1] + fib[i-2];
+            if(fib[i]>4000000)break;
+            if(fib[i] ½ 2 ==0){
+                sum+=fib[i];       
+           }
+            i++;
+        }
+        System.out.printIn("sum is :" + sum);    
+    }
+    }
+SONUÇ:4613732
+
+
+Soru 12 Highly divisible triangular number
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.*;
+import java.io.File;
+public class Problem12 {
+    public static void main (String[] args) {
+        int i = 1;
+        int x = 2;
+        boolean found = false;
+        while (!found) {
+            if (divisors(i) > 500) {
+                System.out.println(i);
+                found = true;
+            }
+            else {
+                i +=x;
+                x++;
+            }
+        }
+    }
+    public static int divisors (int n) {
+        int counter = 0;
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) counter++;
+        }
+        return counter;
+    }
+}
+SONUÇ:76576500
+
+
+SORU 22 Names scores
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.*;
+import java.io.File;
+ 
+public class Problem22 {
+    public static void main(String args[]){
+        try
+        {
+           Scanner in = new Scanner(new File("names.txt")).useDelimiter("[\",]+");
+           ArrayList<String> names = new ArrayList<String>();
+           while (in.hasNext())
+           {
+               names.add(in.next());
+           }
+           Collections.sort(names);
+            
+           int z = 0;
+           for(int i = 0; i <= names.size() - 1; i ++){
+               int x2 = 0;
+               int y = 0;
+               String name = names.get(i);
+               for(int m = 0; m <= name.length() - 1; m ++){
+                   int x1 = letter_counter(name.charAt(m));
+                   x2 += x1;
+               }
+               y = x2 * (i + 1);
+               z += y;
+            }
+           System.out.format("Total = %d%n", z);
+        }
+        catch( FileNotFoundException filenotfoundexcption )
+        {
+           System.out.println( "names.txt, does not exist" );
+        }
+          
+        catch( IOException ioexception )
+        {
+           ioexception.printStackTrace( );
+        }
+    }
+     
+    public static Integer letter_counter(char letter_u)
+    {
+        String letter = Character.toString(letter_u);
+        Map<String, Integer> letv = new HashMap<String, Integer>();
+        letv.put("A", 1);
+        letv.put("B", 2);
+        letv.put("C", 3);
+        letv.put("D", 4);
+        letv.put("E", 5);
+        letv.put("F", 6);
+        letv.put("G", 7);
+        letv.put("H", 8);
+        letv.put("I", 9);
+        letv.put("J", 10);
+        letv.put("K", 11);
+        letv.put("L", 12);
+        letv.put("M", 13);
+        letv.put("N", 14);
+        letv.put("O", 15);
+        letv.put("P", 16);
+        letv.put("Q", 17);
+        letv.put("R", 18);
+        letv.put("S", 19);
+        letv.put("T", 20);
+        letv.put("U", 21);
+        letv.put("V", 22);
+        letv.put("W", 23);
+        letv.put("X", 24);
+        letv.put("Y", 25);
+        letv.put("Z", 26);
+         
+        int lc = letv.get(letter);
+        return lc;
+    }
+}
+
+SONUÇ:871198282
+
+
+
+Soru 32 Pandigital products
+
+private bool isPandigital(long n) {
+    int digits = 0;
+    int count = 0;
+    int tmp;
+ 
+    while (n > 0) {
+        tmp = digits;
+        digits = digits | 1 << (int)((n % 10) - 1);
+        if (tmp == digits) {
+            return false;
+        }
+ 
+        count++;
+        n /= 10;
+    }
+    return digits == (1 << count) - 1;
+}
+ 
+private long concat(long a, long b) {
+    long c = b;
+    while (c > 0) {
+        a *= 10;
+        c /= 10;
+    }
+    return a + b;
+}
+
+Sonuç: 45228
+
+
+Soru 52 Permuted multiples
+
+int start = 1;
+bool found = false;
+int result = 0;
+ 
+while (!found) {
+    start *= 10;
+    for (int i = start; i < start * 10 / 6; i++) {
+        found = true;
+        for (int j = 2; j <= 6; j++) {
+            if (!isPerm(i, j * i)) {
+                found = false;
+                break;
+            }
+        }
+        if (found) {
+            result = i;
+            break;
+        }
+    }
+}
+Sonuç: 4613732
